@@ -18,12 +18,28 @@ class ProductData extends Model
         'strProductDesc',
         'strProductCode',
         'dtmAdded',
-        'dtmDiscontinued'
+        'dtmDiscontinued',
+        'stock_level',
+        'price'
     ];
 
     protected $casts = [
+        'stock_level' => 'integer',
+        'price' => 'float',
         'dtmAdded' => 'datetime',
         'dtmDiscontinued' => 'datetime',
         'stmTimestamp' => 'datetime'
     ];
+
+    public function setStockLevelAttribute($value)
+    {
+        // Cast '' to 0
+        $this->attributes['stock_level'] = $value !== '' ? $value : 0;
+    }
+    
+    public function setPriceAttribute($value)
+    {
+        // Cast '' to 0.0
+        $this->attributes['price'] = $value !== '' ? $value : 0.0;
+    }
 }
